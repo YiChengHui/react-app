@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { api } from "@/api/index";
 import { VideoList } from "@/components/videoList";
-import { Button, PageHeader } from "antd";
+import { Button } from "antd";
 
 export class Index extends Component {
     constructor(props) {
@@ -45,7 +45,6 @@ export class Index extends Component {
         return result.toFixed(1) + "万";
     }
     render() {
-        const header = <PageHeader title="Bilibili" subTitle="热门视频" />;
         const LoadMore = <div className="textCenter mb10">
             <Button type="primary" onClick={this.loadMoreData.bind(this)}>加载更多数据</Button>
         </div>;
@@ -55,6 +54,9 @@ export class Index extends Component {
                     config={{
                         dataSource: this.state.list,
                         footer: LoadMore,
+                    }}
+                    toUpInfo={({ mid }) => {
+                        this.props.history.push(`/Upinfo/${mid}`)
                     }}
                 />
             </div>
