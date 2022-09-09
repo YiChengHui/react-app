@@ -46,7 +46,7 @@ export class Index extends Component {
     }
     render() {
         const LoadMore = <div className="textCenter mb10">
-            <Button type="primary" onClick={this.loadMoreData.bind(this)}>加载更多数据</Button>
+            <Button type="primary" onClick={this.loadMoreData.bind(this)}>加载更多</Button>
         </div>;
         return (
             <div className="Index">

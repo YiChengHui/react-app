@@ -34,6 +34,9 @@ export const RouteList = props => {
     api.interceptors.response.use(config => {
         setLoading(false);
         return config;
+    }, error => {
+        setLoading(false);
+        return error;
     });
 
     return (

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Descriptions, Avatar, PageHeader, Card, Row, Col, Space, Divider } from "antd";
+import { Descriptions, Avatar, PageHeader, Card, Row, Col, Space, Divider, Button } from "antd";
 import { ClockCircleOutlined, PlaySquareOutlined } from '@ant-design/icons';
 
 import { api } from "@/api/index";
@@ -52,7 +52,8 @@ export class UpInfo extends Component {
     }
 
     //获取up所有视频
-    async search(pn, mid) {
+    async search(pn) {
+        const { match: { params: { mid } } } = this.props;
         const { data: { data: { list, page: { count } } } } = await api.get(`/api/x/space/arc/search`, {
             params: {
                 mid,
@@ -65,42 +66,38 @@ export class UpInfo extends Component {
         });
         const { vlist } = list;
         this.setState({
-            videoList: vlist,
+            videoList: this.state.videoList.concat(vlist),
             pageCount: count,
-        })
+        });
     }
+
+    //加载更多
+    loadMore() {
+        this.setState({
+            pageNumber: ++this.state.pageNumber,
+        }, () => {
+            this.search(this.state.pageNumber)
+        });
+    }
+
 
     componentDidMount() {
         const { match: { params: { mid } } } = this.props;
         this.getUpInfo(mid);
-        this.search(this.state.pageNumber, mid);
+        this.search(this.state.pageNumber);
     }
 
     render() {
-        const VideoItems = () => this.state.videoList.map(item => {
-            return <Col xs={12} sm={12} md={8} lg={6} xl={6} xxl={4} className="VideoItem" key={item.aid}>
-                <Card
-                    hoverable
-                    style={{ width: 240, }}
-                    cover={<img height="128px" style={{ objectFit: "cover" }} alt="pic" src={item.pic} />}
-                >
-                    <Card.Meta
-                        title={item.title}
-                        description={
-                            <div>
-                                <p className="description ellipsis">{item.description}</p>
-                                <p>
-                                    <Space>
-                                        <IconText icon={PlayIcon} text={transformNumber(item.play)} />
-                                        <IconText icon={ClockIcon} text={transformDate(item.created * 1000)} />
-                                    </Space>
-                                </p>
-                            </div>
-                        }
-                    />
-                </Card>
-            </Col>
-        })
+        const LoadMore = () => {
+            const { pageCount, pageNumber } = this.state;
+            if (pageNumber * 20 < pageCount) {
+                return <div className="textCenter mb10">
+                    <Button type="primary" onClick={this.loadMore.bind(this)}>加载更多</Button>
+                </div>
+            } else {
+                return <div style={{ diaplay: "none" }}></div>;
+            }
+        };
         return (
             <div className="UpInfo">
                 <PageHeader
@@ -127,9 +124,35 @@ export class UpInfo extends Component {
                 </Descriptions>
 
                 <Row>
-                    <VideoItems />
-                    <Divider plain>共{this.state.pageCount}个视频</Divider>
+                    {
+                        this.state.videoList.map(item => {
+                            return <Col xs={12} sm={12} md={8} lg={6} xl={6} xxl={4} className="VideoItem" key={item.aid}>
+                                <Card
+                                    hoverable
+                                    style={{ width: 240 }}
+                                    cover={<img height="128px" style={{ objectFit: "cover" }} alt="pic" src={item.pic} />}
+                                >
+                                    <Card.Meta
+                                        title={item.title}
+                                        description={
+                                            <div>
+                                                <div className="description ellipsis">{item.description}</div>
+                                                <div>
+                                                    <Space>
+                                                        <IconText icon={PlayIcon} text={transformNumber(item.play)} />
+                                                        <IconText icon={ClockIcon} text={transformDate(item.created * 1000)} />
+                                                    </Space>
+                                                </div>
+                                            </div>
+                                        }
+                                    />
+                                </Card>
+                            </Col>
+                        })
+                    }
                 </Row>
+                <LoadMore />
+                <Divider plain>已加载{this.state.videoList.length}个视频，共{this.state.pageCount}个视频</Divider>
             </div>
         )
     }
