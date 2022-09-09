@@ -40,7 +40,7 @@ body {
 			}
 
 			.site-layout-content {
-				padding: 20px;
+				padding: 10px;
 				height: calc(100% - 64px);
 				overflow-y: scroll;
 			}
@@ -107,6 +107,12 @@ body {
 	margin-top: 10px;
 }
 
+.description.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .VideoList {
 	.listItem {
 		margin-bottom: 20px;
@@ -126,4 +132,59 @@ body {
 	}
 }
 
-.Index {}
+.UpInfo {
+	.header {
+		width: 100%;
+		position: relative;
+		height: 192px;
+
+		.background {
+			position: absolute;
+			height: 192px;
+			left: 0;
+			right: 0;
+
+			img {
+				width: 100%;
+				height: 192px;
+			}
+		}
+
+		.image {
+			position: absolute;
+			bottom: 20px;
+			left: 20px;
+		}
+
+		.name {
+			position: absolute;
+			bottom: 20px;
+			left: 120px;
+
+			span {
+				color: #fff;
+
+				&:first-of-type {
+					font-weight: 600;
+					font-size: 20px;
+				}
+
+				line-height: 40px;
+			}
+		}
+	}
+
+	.numbers {
+		span {
+			width: 60px;
+
+			p {
+				margin: 0;
+			}
+		}
+	}
+
+	.VideoItem {
+		margin-bottom: 20px;
+	}
+}

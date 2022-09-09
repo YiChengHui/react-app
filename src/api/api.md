@@ -35,13 +35,34 @@
    -  platform: 平台，如：html5
 
 ## 获取UP信息
--  请求地址：`x/space/acc/info`
+-  请求地址：`/api/x/space/acc/info`
 -  请求方式：Get
 -  请求入参
    -  mid: up主id
+   
+## 获取UP关注、粉丝数
+-  请求地址：`/api/x/relation/stat`
+-  请求方式：Get
+-  请求入参
+   -  vmid: up主id
+   -  jsonp： jsonp
+
+## 获取UP获赞数、播放数、阅读数
+-  请求地址：`/api/x/space/upstat`
+-  请求方式：Get
+-  请求入参
+   -  mid: up主id
+   -  jsonp： jsonp
+
+## 获取UP公告
+-  请求地址：`/api/x/space/notice`
+-  请求方式：Get
+-  请求入参
+   -  mid: up主id
+   -  jsonp： jsonp
 
 ## 获取UP视频
--  请求地址：`/x/space/arc/search`
+-  请求地址：`/api/x/space/arc/search`
 -  请求方式：Get
 -  请求入参
    -  mid: up主id
