@@ -40,7 +40,7 @@ body {
 			}
 
 			.site-layout-content {
-				padding: 20px;
+				padding: 10px;
 				height: calc(100% - 64px);
 				overflow-y: scroll;
 			}
@@ -107,6 +107,12 @@ body {
 	margin-top: 10px;
 }
 
+.description.ellipsis {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 .VideoList {
 	.listItem {
 		margin-bottom: 20px;
@@ -139,6 +145,7 @@ body {
 			right: 0;
 
 			img {
+				width: 100%;
 				height: 192px;
 			}
 		}
@@ -165,5 +172,19 @@ body {
 				line-height: 40px;
 			}
 		}
+	}
+
+	.numbers {
+		span {
+			width: 60px;
+
+			p {
+				margin: 0;
+			}
+		}
+	}
+
+	.VideoItem {
+		margin-bottom: 20px;
 	}
 }
