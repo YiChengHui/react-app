@@ -5,7 +5,7 @@ import { ClockCircleOutlined, PlaySquareOutlined } from '@ant-design/icons';
 
 import { api } from "@/api/index";
 
-import { transformNumber, transformDate } from "@/components/tools";
+import { transformNumber, transformDate, toVideoPage } from "@/components/tools";
 
 const IconText = ({ icon, text }) => (
     <Space>
@@ -105,7 +105,7 @@ export class UpInfo extends Component {
                     title="首页"
                     subTitle={this.state.upInfo.name}
                 />
-                <Descriptions>
+                <Descriptions column={3}>
                     <Descriptions.Item span={3}>
                         <div className="header">
                             <div className="background">
@@ -123,14 +123,15 @@ export class UpInfo extends Component {
                     </Descriptions.Item>
                 </Descriptions>
 
-                <Row>
+                <Row gutter={16} style={{ margin: 0, padding: 0 }}>
                     {
                         this.state.videoList.map(item => {
-                            return <Col xs={12} sm={12} md={8} lg={6} xl={6} xxl={4} className="VideoItem" key={item.aid}>
+                            return <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }} lg={{ span: 6 }} xl={{ span: 6 }} xxl={{ span: 4 }} className="VideoItem" key={item.aid}>
                                 <Card
                                     hoverable
-                                    style={{ width: 240 }}
+                                    style={{ width: "100%" }}
                                     cover={<img height="128px" style={{ objectFit: "cover" }} alt="pic" src={item.pic} />}
+                                    onClick={toVideoPage.bind(item, item.bvid)}
                                 >
                                     <Card.Meta
                                         title={item.title}
