@@ -7,9 +7,10 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, GithubFilled } from "@ant-design/
 
 
 const { Header, Sider, Content, } = Layout;
-const isMobile = /Android|webOS|iPhone|iPad|Windows Phone|iPod|BlackBerry|SymbianOS|Nokia|Mobile/i.test(navigator.userAgent);
-const navList = Routes.filter(({ navName }) => navName).map(({ path, navName }) => {
+let isMobile = /Android|webOS|iPhone|iPad|Windows Phone|iPod|BlackBerry|SymbianOS|Nokia|Mobile/i.test(navigator.userAgent);
+const navList = Routes.filter(({ navName }) => navName).map(({ path, navName, icon }) => {
     return {
+        icon,
         key: path,
         label: navName,
     };
@@ -26,16 +27,11 @@ export const PageLayout = props => {
                 pathname: key
             })
         }
-        const items = isMobile ? [{
-            label: "菜单",
-            key: "SubMenu",
-            children: navList
-        }] : navList;
         return <Menu
             theme={theme || "dark"}
             mode={mode || "inline"}
             defaultSelectedKeys={[Routes[0]["path"]]}
-            items={items}
+            items={navList}
             onClick={pageGo}
         />
     };
