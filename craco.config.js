@@ -9,13 +9,20 @@ module.exports = {
     },
     devServer: {
         proxy: {
-            "/api": {
+            "/api/bapi": {
                 target: "https://api.bilibili.com/",
                 changeOrigin: true,
                 pathRewrite: {
-                    "/api": "/"
+                    "/api/bapi": "/"
                 }
-            }
+            },
+            "/api/server": {
+                target: "http://server.yichenghui.net/index.php/",
+                changeOrigin: true,
+                pathRewrite: {
+                    "/api/server": "/"
+                }
+            },
         }
     },
     plugins: [

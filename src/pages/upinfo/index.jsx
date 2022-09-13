@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Descriptions, Avatar, PageHeader, Card, Row, Col, Space, Divider, Button } from "antd";
 import { ClockCircleOutlined, PlaySquareOutlined } from '@ant-design/icons';
 
-import { api } from "@/api/index";
+import axios from "axios";
 
 import { transformNumber, transformDate, toVideoPage } from "@/components/tools";
 
@@ -37,7 +37,7 @@ export class UpInfo extends Component {
         if (localStorage.getItem(mid)) {
             upInfo = JSON.parse(localStorage.getItem(mid))
         } else {
-            const { data: { data } } = await api(`/api/x/space/acc/info`, {
+            const { data: { data } } = await axios.get(`/api/bapi/x/space/acc/info`, {
                 params: {
                     mid,
                     jsonp: "jsonp"
@@ -54,7 +54,7 @@ export class UpInfo extends Component {
     //获取up所有视频
     async search(pn) {
         const { match: { params: { mid } } } = this.props;
-        const { data: { data: { list, page: { count } } } } = await api.get(`/api/x/space/arc/search`, {
+        const { data: { data: { list, page: { count } } } } = await axios.get(`/api/bapi/x/space/arc/search`, {
             params: {
                 mid,
                 pn,
@@ -74,7 +74,7 @@ export class UpInfo extends Component {
     //加载更多
     loadMore() {
         this.setState({
-            pageNumber: ++this.state.pageNumber,
+            pageNumber: this.state.pageNumber + 1,
         }, () => {
             this.search(this.state.pageNumber)
         });

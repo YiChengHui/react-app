@@ -8,7 +8,7 @@ import { Index } from "@/pages/index";
 import { App } from "@/pages/app/App";
 import { UpInfo } from "@/pages/upinfo/index";
 
-import { api } from "@/api/index.js";
+import axios from "axios";
 
 export const Routes = [{
     path: "/index",
@@ -20,18 +20,18 @@ export const Routes = [{
 }, {
     path: "/App",
     component: App,
-    navName: "App"
+    navName: "关于我"
 }];
 
 export const RouteList = props => {
     const [Loading, setLoading] = useState(false);
 
-    api.interceptors.request.use(config => {
+    axios.interceptors.request.use(config => {
         setLoading(true);
         return config;
     });
 
-    api.interceptors.response.use(config => {
+    axios.interceptors.response.use(config => {
         setLoading(false);
         return config;
     }, error => {

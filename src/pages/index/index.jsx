@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { api } from "@/api/index";
+import axios from "axios";
 import { VideoList } from "@/components/videoList";
 import { Button } from "antd";
 
@@ -23,7 +23,7 @@ export class Index extends Component {
             data: {
                 data: { list },
             },
-        } = await api.get("/api/x/web-interface/popular", {
+        } = await axios.get("/api/bapi/x/web-interface/popular", {
             params: {
                 ps: 10,
                 pn,

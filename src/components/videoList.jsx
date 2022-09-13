@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { LikeOutlined, PlayCircleOutlined, StarOutlined } from '@ant-design/icons';
-import { Row, Col, Avatar, List, Space, Image, Divider } from 'antd';
+import { Row, Col, Avatar, List, Space, Image } from 'antd';
 
 
 const IconText = ({ icon, text }) => (
@@ -52,7 +52,7 @@ export class VideoList extends Component {
                                             src={item.owner.face}
                                         />
                                     }
-                                    title={<a href={item.short_link} target="_blank"> <b>{item.title}</b></a>}
+                                    title={<a href={item.short_link} target="_blank" rel="noreferrer"> <b>{item.title}</b></a>}
                                     description={
                                         <div className="description ellipsis" onClick={this.props.toUpInfo.bind(this, item.owner)}><b>{item.owner.name}</b>：{item.desc}</div>
                                     }

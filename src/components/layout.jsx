@@ -46,7 +46,7 @@ export const PageLayout = props => {
         }
         return <Sider trigger={null} collapsible collapsed={collapsed}>
             <div className="logo" >
-                <a href="https://github.com/YiChengHui/bilibili-react" target="_blank">
+                <a href="https://github.com/YiChengHui/bilibili-react" target="_blank" rel="noreferrer">
                     <GithubFilled style={{
                         color: "#fff",
                         fontSize: "30px",
