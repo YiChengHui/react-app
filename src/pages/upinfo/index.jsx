@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import { Descriptions, Avatar, PageHeader, Card, Row, Col, Space, Divider, Button } from "antd";
 import { ClockCircleOutlined, PlaySquareOutlined } from '@ant-design/icons';
 
-import { api } from "@/api/index";
+import axios from "axios";
 
-import { transformNumber, transformDate } from "@/components/tools";
+import { transformNumber, transformDate, toVideoPage } from "@/components/tools";
 
 const IconText = ({ icon, text }) => (
     <Space>
@@ -37,7 +37,7 @@ export class UpInfo extends Component {
         if (localStorage.getItem(mid)) {
             upInfo = JSON.parse(localStorage.getItem(mid))
         } else {
-            const { data: { data } } = await api(`/api/x/space/acc/info`, {
+            const { data: { data } } = await axios.get(`/api/bapi/x/space/acc/info`, {
                 params: {
                     mid,
                     jsonp: "jsonp"
@@ -54,7 +54,7 @@ export class UpInfo extends Component {
     //获取up所有视频
     async search(pn) {
         const { match: { params: { mid } } } = this.props;
-        const { data: { data: { list, page: { count } } } } = await api.get(`/api/x/space/arc/search`, {
+        const { data: { data: { list, page: { count } } } } = await axios.get(`/api/bapi/x/space/arc/search`, {
             params: {
                 mid,
                 pn,
@@ -74,7 +74,7 @@ export class UpInfo extends Component {
     //加载更多
     loadMore() {
         this.setState({
-            pageNumber: ++this.state.pageNumber,
+            pageNumber: this.state.pageNumber + 1,
         }, () => {
             this.search(this.state.pageNumber)
         });
@@ -101,11 +101,11 @@ export class UpInfo extends Component {
         return (
             <div className="UpInfo">
                 <PageHeader
-                    onBack={() => this.props.history.push("/index")}
+                    onBack={() => this.props.history.replace("/index")}
                     title="首页"
                     subTitle={this.state.upInfo.name}
                 />
-                <Descriptions>
+                <Descriptions column={3}>
                     <Descriptions.Item span={3}>
                         <div className="header">
                             <div className="background">
@@ -123,14 +123,15 @@ export class UpInfo extends Component {
                     </Descriptions.Item>
                 </Descriptions>
 
-                <Row>
+                <Row gutter={16} style={{ margin: 0, padding: 0 }}>
                     {
                         this.state.videoList.map(item => {
-                            return <Col xs={12} sm={12} md={8} lg={6} xl={6} xxl={4} className="VideoItem" key={item.aid}>
+                            return <Col xs={{ span: 24 }} sm={{ span: 12 }} md={{ span: 8 }} lg={{ span: 6 }} xl={{ span: 6 }} xxl={{ span: 4 }} className="VideoItem" key={item.aid}>
                                 <Card
                                     hoverable
-                                    style={{ width: 240 }}
+                                    style={{ width: "100%" }}
                                     cover={<img height="128px" style={{ objectFit: "cover" }} alt="pic" src={item.pic} />}
+                                    onClick={toVideoPage.bind(item, item.bvid)}
                                 >
                                     <Card.Meta
                                         title={item.title}

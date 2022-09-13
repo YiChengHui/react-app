@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { api } from "@/api/index";
+import axios from "axios";
 import { VideoList } from "@/components/videoList";
 import { Button } from "antd";
 
@@ -9,17 +9,21 @@ export class Index extends Component {
         this.state = {
             list: [],
             currentPage: 1,
+            loading: false,
         };
     }
     componentDidMount() {
         this.getList(this.state.currentPage);
     }
     async getList(pn = 1) {
+        this.setState({
+            loading: true,
+        });
         const {
             data: {
                 data: { list },
             },
-        } = await api.get("/api/x/web-interface/popular", {
+        } = await axios.get("/api/bapi/x/web-interface/popular", {
             params: {
                 ps: 10,
                 pn,
@@ -30,6 +34,7 @@ export class Index extends Component {
             ...list,
         ];
         this.setState({
+            loading: false,
             list: temp,
         });
     }
@@ -46,7 +51,7 @@ export class Index extends Component {
     }
     render() {
         const LoadMore = <div className="textCenter mb10">
-            <Button type="primary" onClick={this.loadMoreData.bind(this)}>加载更多</Button>
+            <Button type="primary" loading={this.state.loading} onClick={this.loadMoreData.bind(this)}>加载更多</Button>
         </div>;
         return (
             <div className="Index">
@@ -56,7 +61,7 @@ export class Index extends Component {
                         footer: LoadMore,
                     }}
                     toUpInfo={({ mid }) => {
-                        this.props.history.push(`/Upinfo/${mid}`)
+                        this.props.history.replace(`/Upinfo/${mid}`)
                     }}
                 />
             </div>

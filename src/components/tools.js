@@ -14,3 +14,7 @@ export function transformDate(date) {
 
     return `${year}-${month}-${day}`
 }
+
+export function toVideoPage(bvid) {
+    window.open(`https://www.bilibili.com/video/${bvid}`);
+}
