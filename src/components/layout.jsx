@@ -7,7 +7,7 @@ import { MenuFoldOutlined, MenuUnfoldOutlined, GithubFilled } from "@ant-design/
 
 
 const { Header, Sider, Content, } = Layout;
-let isMobile = /Android|webOS|iPhone|iPad|Windows Phone|iPod|BlackBerry|SymbianOS|Nokia|Mobile/i.test(navigator.userAgent);
+const isMobile = /Android|webOS|iPhone|iPad|Windows Phone|iPod|BlackBerry|SymbianOS|Nokia|Mobile|MicroMessenger/i.test(navigator.userAgent);
 const navList = Routes.filter(({ navName }) => navName).map(({ path, navName, icon }) => {
     return {
         icon,
