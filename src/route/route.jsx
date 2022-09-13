@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HashRouter, Route, Redirect } from "react-router-dom";
+import { HashRouter, Route, Switch } from "react-router-dom";
 
 import { createFromIconfontCN } from "@ant-design/icons";
 
@@ -17,6 +17,9 @@ const IconFont = createFromIconfontCN({
 });
 
 export const Routes = [{
+    path: "/",
+    component: Index,
+}, {
     path: "/index",
     component: Index,
     navName: "B站视频",
@@ -25,7 +28,7 @@ export const Routes = [{
     path: "/UpInfo/:mid",
     component: UpInfo,
 }, {
-    path: "/App",
+    path: "/about",
     component: App,
     navName: "关于我",
     icon: <IconFont type="icon-guanyuwomen" style={{ fontSize: '16px', color: '#1890ff' }} />,
@@ -50,9 +53,10 @@ export const RouteList = props => {
     return (
         <HashRouter>
             <ConfigProvider locale={zhCN}>
-                <Spin className="Loading" size="large" tip="Loading..." spinning={Loading} >
-                    <Redirect from="/" to="/index" />
-                    {Routes.map(item => <Route path={item.path} key={item.path} component={item.component} />)}
+                <Spin className="Loading" size="large" tip="Loading..." spinning={Loading}>
+                    <Switch>
+                        {Routes.map((item, index) => <Route exact path={item.path} key={index} component={item.component} />)}
+                    </Switch>
                 </Spin>
             </ConfigProvider>
         </HashRouter>

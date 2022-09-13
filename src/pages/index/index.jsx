@@ -61,7 +61,7 @@ export class Index extends Component {
                         footer: LoadMore,
                     }}
                     toUpInfo={({ mid }) => {
-                        this.props.history.push(`/Upinfo/${mid}`)
+                        this.props.history.replace(`/Upinfo/${mid}`)
                     }}
                 />
             </div>

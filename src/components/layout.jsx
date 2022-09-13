@@ -23,7 +23,7 @@ export const PageLayout = props => {
         const { mode, theme } = props;
         const history = useHistory();
         function pageGo({ key }) {
-            history.push({
+            history.replace({
                 pathname: key
             })
         }

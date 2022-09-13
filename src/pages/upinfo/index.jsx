@@ -101,7 +101,7 @@ export class UpInfo extends Component {
         return (
             <div className="UpInfo">
                 <PageHeader
-                    onBack={() => this.props.history.push("/index")}
+                    onBack={() => this.props.history.replace("/index")}
                     title="首页"
                     subTitle={this.state.upInfo.name}
                 />
