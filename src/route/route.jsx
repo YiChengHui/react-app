@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 
-import { createFromIconfontCN } from "@ant-design/icons";
+import { createFromIconfontCN, CustomerServiceOutlined } from "@ant-design/icons";
 
 import { Spin, ConfigProvider } from "antd";
 import zhCN from 'antd/es/locale/zh_CN';
 
-import { Index } from "@/pages/index";
 import { App } from "@/pages/app/App";
 import { UpInfo } from "@/pages/upinfo/index";
+import { Music } from "@/pages/music/index"
+import { MusicDetail } from "@/pages/music/detail"
 
 import axios from "axios";
 
@@ -18,12 +19,15 @@ const IconFont = createFromIconfontCN({
 
 export const Routes = [{
     path: "/",
-    component: Index,
+    component: Music,
 }, {
-    path: "/index",
-    component: Index,
-    navName: "B站视频",
-    icon: <IconFont type="icon-bilibili" style={{ fontSize: '16px', color: '#1890ff' }} />
+    path: "/music",
+    component: Music,
+    navName: "音乐",
+    icon: <CustomerServiceOutlined style={{ fontSize: '16px', color: '#1890ff' }} />
+}, {
+    path: "/topList/:id",
+    component: MusicDetail
 }, {
     path: "/UpInfo/:mid",
     component: UpInfo,

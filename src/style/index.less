@@ -68,8 +68,8 @@ body {
 	margin-bottom: 10px;
 }
 
-.mt10 {
-	margin-top: 10px;
+.mb10 {
+	margin-bottom: 10px;
 }
 
 .description.ellipsis {
@@ -143,5 +143,40 @@ body {
 
 	.VideoItem {
 		margin-bottom: 20px;
+	}
+}
+
+.MusicIndex {
+	padding: 20px;
+
+	.MusicList {
+		.MusicListItem {
+			margin-bottom: 20px;
+
+			.desc {
+				overflow: hidden;
+				text-overflow: ellipsis;
+				word-break: break-word;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+
+			.musicCard {
+				margin: 0 auto;
+			}
+		}
+	}
+}
+
+.MusicDetail {
+	.content {
+		padding: 20px;
+	}
+	.ant-list-item {
+		&:hover {
+			background-color: #fff;
+
+		}
 	}
 }
