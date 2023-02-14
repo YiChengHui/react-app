@@ -23,6 +23,10 @@ module.exports = {
                     "/api/server": "/"
                 }
             },
+            "/api/music": {
+                target: "https://yichenghui.net/",
+                changeOrigin: true,
+            },
         }
     },
     plugins: [
