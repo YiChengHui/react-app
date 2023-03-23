@@ -7,6 +7,17 @@ body {
 	#root {
 		height: 100%;
 
+		.ant-menu-item {
+			color: '#1890ff';
+			font-size: 16px;
+
+			&.ant-menu-item-selected {
+				span {
+					color: #fff !important;
+				}
+			}
+		}
+
 		.site-layout {
 			height: 100%;
 
@@ -172,7 +183,13 @@ body {
 .MusicDetail {
 	.content {
 		padding: 20px;
+
+		.headerImage {
+			object-fit: cover;
+			height: 200px;
+		}
 	}
+
 	.ant-list-item {
 		&:hover {
 			background-color: #fff;

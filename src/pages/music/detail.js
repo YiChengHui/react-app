@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { PageHeader, Image, Row, Col, Avatar, Skeleton, List, } from "antd";
+import { PageHeader, Image, Row, Avatar, Skeleton, List } from "antd";
 import { PlayCircleOutlined } from "@ant-design/icons";
+import { fallback } from "@/components/tools";
 
 import axios from "axios";
 
@@ -22,7 +23,7 @@ export function MusicDetail(prop) {
                 <List.Item>
                     <Skeleton avatar title={false} active loading={initLoading}>
                         <List.Item.Meta
-                            avatar={<Avatar size={ 50 } src={item.al?.picUrl.replace(`http`, `https`)} />}
+                            avatar={<Avatar size={80} src={item.al?.picUrl.replace(`http`, `https`)} />}
                             title={item?.name}
                             description={item.ar[0]?.name}
                         />
@@ -52,9 +53,7 @@ export function MusicDetail(prop) {
         />
         <div className="content">
             <Row>
-                <Col span={3}>
-                    <Image src={detail.playlist.coverImgUrl} width="130px" />
-                </Col>
+                <Image className="headerImage" src={detail.playlist.coverImgUrl} width="100%" fallback={fallback} preview={false} />
             </Row>
             <MusicList tracks={detail.playlist.tracks} />
         </div>

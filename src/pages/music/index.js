@@ -1,6 +1,6 @@
-import { Card, Row, Col, PageHeader } from 'antd';
+import { Card, Row, Col, PageHeader, Image } from 'antd';
 import { useEffect, useState } from "react";
-import { transformDate } from "@/components/tools";
+import { transformDate, fallback } from "@/components/tools";
 import axios from "axios";
 
 const { Meta } = Card;
@@ -35,7 +35,7 @@ export function Music(prop) {
                             className="musicCard"
                             hoverable
                             style={{ width: 240 }}
-                            cover={<img alt={item.name} src={item.coverImgUrl} />}
+                            cover={<Image alt={item.name} src={item.coverImgUrl} fallback={fallback} preview={false} />}
                             actions={[
                                 <div>{transformDate(item.updateTime)}</div>,
                                 <div>{item.updateFrequency}</div>,

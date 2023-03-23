@@ -24,7 +24,7 @@ export const Routes = [{
     path: "/music",
     component: Music,
     navName: "音乐",
-    icon: <CustomerServiceOutlined style={{ fontSize: '16px', color: '#1890ff' }} />
+    icon: <CustomerServiceOutlined />
 }, {
     path: "/topList/:id",
     component: MusicDetail
@@ -35,7 +35,7 @@ export const Routes = [{
     path: "/about",
     component: App,
     navName: "关于我",
-    icon: <IconFont type="icon-guanyuwomen" style={{ fontSize: '16px', color: '#1890ff' }} />,
+    icon: <IconFont type="icon-guanyuwomen" />
 }];
 
 export const RouteList = props => {
