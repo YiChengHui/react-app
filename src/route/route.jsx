@@ -7,7 +7,6 @@ import { Spin, ConfigProvider } from "antd";
 import zhCN from 'antd/es/locale/zh_CN';
 
 import { App } from "@/pages/app/App";
-import { UpInfo } from "@/pages/upinfo/index";
 import { Music } from "@/pages/music/index"
 import { MusicDetail } from "@/pages/music/detail"
 
@@ -28,9 +27,6 @@ export const Routes = [{
 }, {
     path: "/topList/:id",
     component: MusicDetail
-}, {
-    path: "/UpInfo/:mid",
-    component: UpInfo,
 }, {
     path: "/about",
     component: App,
