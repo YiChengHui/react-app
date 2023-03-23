@@ -1,4 +1,6 @@
 @import '~antd/dist/antd.css';
+@mainColor: #1890ff;
+@transition: all 0.3s;
 
 html,
 body {
@@ -37,7 +39,7 @@ body {
 				font-size: 18px;
 				line-height: 64px;
 				cursor: pointer;
-				transition: color 0.3s;
+				transition: @transition;
 
 				&:hover {
 					color: #1890ff;
@@ -89,74 +91,6 @@ body {
 	white-space: nowrap;
 }
 
-.VideoList {
-	.listItem {
-		margin-bottom: 20px;
-
-		.videoImg {
-			text-align: center;
-
-		}
-	}
-}
-
-.UpInfo {
-	.header {
-		width: 100%;
-		position: relative;
-		height: 192px;
-
-		.background {
-			position: absolute;
-			height: 192px;
-			left: 0;
-			right: 0;
-
-			img {
-				width: 100%;
-				height: 192px;
-			}
-		}
-
-		.image {
-			position: absolute;
-			bottom: 20px;
-			left: 20px;
-		}
-
-		.name {
-			position: absolute;
-			bottom: 20px;
-			left: 120px;
-
-			span {
-				color: #fff;
-
-				&:first-of-type {
-					font-weight: 600;
-					font-size: 20px;
-				}
-
-				line-height: 40px;
-			}
-		}
-	}
-
-	.numbers {
-		span {
-			width: 60px;
-
-			p {
-				margin: 0;
-			}
-		}
-	}
-
-	.VideoItem {
-		margin-bottom: 20px;
-	}
-}
-
 .MusicIndex {
 	padding: 20px;
 
@@ -193,7 +127,145 @@ body {
 	.ant-list-item {
 		&:hover {
 			background-color: #fff;
-
 		}
 	}
+}
+
+.Player {
+	background-color: #fff;
+	position: sticky;
+	height: 60px;
+	padding: 5px;
+	bottom: 10px;
+	right: 0;
+	left: 0;
+	user-select: none;
+
+	.info {
+		.muiscName {
+			padding: 0 10px;
+			height: 25px;
+			line-height: 25px;
+			font-size: 12px;
+
+			.owner {
+				padding: 0 5px;
+				color: #333;
+			}
+		}
+
+		.downloadIcon {
+			padding: 0 10px;
+			height: 25px;
+			line-height: 25px;
+			font-size: 15px;
+			color: #333;
+			cursor: pointer;
+
+			&:hover {
+				transition: @transition;
+				color: @mainColor;
+			}
+		}
+	}
+
+	.iconsGroup {
+		font-size: 25px;
+		text-align: center;
+		line-height: 50px;
+
+		span[role="img"] {
+			color: #333;
+			cursor: pointer;
+
+			&:hover {
+				transition: @transition;
+				color: @mainColor;
+			}
+
+			&:nth-of-type(2) {
+				margin: 0 10px;
+			}
+		}
+	}
+
+	.duration {
+		height: 45px;
+		line-height: 45px;
+		text-align: right;
+
+		.time {
+			font-size: 12px;
+		}
+
+		.text {
+			margin: 0 10px;
+			cursor: pointer;
+		}
+
+		.icon {
+			color: #333;
+			cursor: pointer;
+
+			&:hover {
+				transition: @transition;
+				color: @mainColor;
+			}
+		}
+	}
+
+	.sliderList {
+		background-color: #fff;
+		position: fixed;
+		width: 200px;
+		top: 64px;
+		bottom: 1px;
+		transition: @transition;
+
+		&.hide {
+			animation: show 0.5s forwards;
+		}
+
+		&.show {
+			animation: hide 0.5s forwards;
+		}
+
+		.closeSlide {
+			span {
+				font-size: 20px;
+				color: #333;
+				cursor: pointer;
+
+				&:hover {
+					transition: @transition;
+					color: @mainColor;
+				}
+			}
+		}
+
+		@keyframes show {
+			from {
+				right: 0;
+				display: block;
+			}
+
+			to {
+				right: -200px;
+				display: none;
+			}
+		}
+
+		@keyframes hide {
+			from {
+				right: -200px;
+				display: none;
+			}
+
+			to {
+				right: 0;
+				display: block;
+			}
+		}
+	}
+
 }

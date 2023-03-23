@@ -1,6 +1,7 @@
 import { Card, Row, Col, PageHeader, Image } from 'antd';
 import { useEffect, useState } from "react";
 import { transformDate, fallback } from "@/components/tools";
+import { Player } from './player';
 import axios from "axios";
 
 const { Meta } = Card;
@@ -16,7 +17,6 @@ export function Music(prop) {
     function toDetail(id) {
         prop.history.push(`/topList/${id}`);
     }
-
 
     useEffect(() => {
         getList()
@@ -57,6 +57,7 @@ export function Music(prop) {
         <div className="MusicIndex">
             <PageHeader title="音乐榜单" />
             <TopList />
+            <Player />
         </div>
     )
 }
