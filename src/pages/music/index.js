@@ -8,6 +8,7 @@ const { Meta } = Card;
 
 export function Music(prop) {
     const [listArr, setList] = useState([]);
+    const [showPlayer] = useState(true);
 
     async function getList() {
         const { data: { list } } = await axios.get(`/api/music/toplist`);
@@ -27,7 +28,7 @@ export function Music(prop) {
                 listArr.map(item => {
                     return <Col
                         xxl={4} xl={6} lg={8} sm={12} xs={12}
-                        className="MusicListItem"
+                        className="MusicListItem animate__animated animate__fadeInDown"
                         onClick={toDetail.bind(null, item.id)}
                         key={item.id}
                     >
@@ -55,9 +56,9 @@ export function Music(prop) {
     }
     return (
         <div className="MusicIndex">
-            <PageHeader title="音乐榜单" />
-            <TopList />
-            <Player />
+            {/* <PageHeader title="音乐榜单" />
+            <TopList /> */}
+            <Player show={showPlayer} />
         </div>
     )
 }

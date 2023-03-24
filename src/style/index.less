@@ -1,4 +1,5 @@
 @import '~antd/dist/antd.css';
+// @import './animate.min.css';
 @mainColor: #1890ff;
 @transition: all 0.3s;
 
@@ -120,7 +121,7 @@ body {
 
 		.headerImage {
 			object-fit: cover;
-			height: 200px;
+			height: 150px;
 		}
 	}
 
@@ -140,6 +141,14 @@ body {
 	right: 0;
 	left: 0;
 	user-select: none;
+
+	&.PlayerShow {
+		animation: zoomIn 0.5s forwards;
+	}
+
+	&.PlayerHide {
+		animation: zoomOut 0.5s forwards;
+	}
 
 	.info {
 		.muiscName {
@@ -219,16 +228,19 @@ body {
 		position: fixed;
 		width: 200px;
 		top: 64px;
+		right: 0;
 		bottom: 1px;
 		transition: @transition;
 
-		&.hide {
-			animation: show 0.5s forwards;
+		&.show {
+			display: block;
 		}
 
-		&.show {
-			animation: hide 0.5s forwards;
+		&.hide {
+			display: none;
 		}
+
+
 
 		.closeSlide {
 			span {
@@ -242,30 +254,34 @@ body {
 				}
 			}
 		}
-
-		@keyframes show {
-			from {
-				right: 0;
-				display: block;
-			}
-
-			to {
-				right: -200px;
-				display: none;
-			}
-		}
-
-		@keyframes hide {
-			from {
-				right: -200px;
-				display: none;
-			}
-
-			to {
-				right: 0;
-				display: block;
-			}
-		}
 	}
 
+}
+
+@keyframes zoomIn {
+	0% {
+		opacity: 0;
+		-webkit-transform: scale3d(.3, .3, .3);
+		transform: scale3d(.3, .3, .3)
+	}
+
+	50% {
+		opacity: 1
+	}
+}
+
+@keyframes zoomOut {
+	0% {
+		opacity: 1
+	}
+
+	50% {
+		opacity: 0;
+		-webkit-transform: scale3d(.3, .3, .3);
+		transform: scale3d(.3, .3, .3)
+	}
+
+	to {
+		opacity: 0
+	}
 }

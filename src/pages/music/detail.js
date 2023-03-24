@@ -23,7 +23,7 @@ export function MusicDetail(prop) {
                 <List.Item>
                     <Skeleton avatar title={false} active loading={initLoading}>
                         <List.Item.Meta
-                            avatar={<Avatar size={80} src={item.al?.picUrl.replace(`http`, `https`)} />}
+                            avatar={<Avatar size={50} src={item.al?.picUrl.replace(`http`, `https`)} />}
                             title={item?.name}
                             description={item.ar[0]?.name}
                         />

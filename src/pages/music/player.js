@@ -1,11 +1,15 @@
-import { CloudDownloadOutlined, StepBackwardOutlined, PlayCircleOutlined, StepForwardOutlined, MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
-import { useState } from 'react';
-import { Row, Col, Image, Divider, List } from 'antd';
+import { CloudDownloadOutlined, StepBackwardOutlined, PlayCircleOutlined, StepForwardOutlined, MenuFoldOutlined, MenuUnfoldOutlined, PauseCircleOutlined } from '@ant-design/icons';
+import { useState, useEffect } from 'react';
+import { Row, Col, Image, List } from 'antd';
 import { fallback } from "@/components/tools";
-export function Player() {
+export function Player(prop) {
     const [listShow, setListShow] = useState(false);
 
-    const [listData, setListData] = useState([
+    const [playState, setPlayState] = useState(false);
+
+    const [playerClassName, setPlayerClassName] = useState('Player animate__animated');
+
+    const [listData] = useState([
         'Racing car sprays burning fuel into crowd.',
         'Japanese princess to wed commoner.',
         'Australian walks 100km after outback crash.',
@@ -18,8 +22,24 @@ export function Player() {
         setListShow(!listShow);
     }
 
+    function startPlay() {
+        setPlayState(!playState);
+    }
+
+    function PlayButton() {
+        return playState ? <PauseCircleOutlined onClick={startPlay} /> : <PlayCircleOutlined onClick={startPlay} />
+    }
+
+    useEffect(() => {
+        if (prop.show) {
+            setPlayerClassName('Player PlayerShow')
+        } else {
+            setPlayerClassName('Player PlayerHide')
+        }
+    }, [prop.show])
+
     return (
-        <div className='Player'>
+        <div className={playerClassName}>
             <Row >
                 <Col span={8} className="info">
                     <Row>
@@ -41,7 +61,7 @@ export function Player() {
                 </Col>
                 <Col span={8} className="iconsGroup">
                     <StepBackwardOutlined />
-                    <PlayCircleOutlined />
+                    <PlayButton />
                     <StepForwardOutlined />
                 </Col>
                 <Col span={8} className="duration">
