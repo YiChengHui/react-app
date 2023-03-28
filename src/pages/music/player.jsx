@@ -6,10 +6,9 @@ let timer = null;
 export function Player(prop) {
     const audioRef = useRef(null); // video的dom
     const [currentTime, setCurrentTime] = useState(0); // 当前播放位置
-    const [listShow, setListShow] = useState(false); // 列表展示
-    const [playState, setPlayState] = useState(false); // 播放状态
+    const [listShow, setListShow] = useState(true); // 列表展示
+    const [playState, setPlayState] = useState(true); // 播放状态
     const [playerClassName, setPlayerClassName] = useState('Player animate__animated'); // 播放组件显示隐藏动画
-
     const [listData] = useState([
         'Racing car sprays burning fuel into crowd.',
         'Japanese princess to wed commoner.',
@@ -18,8 +17,6 @@ export function Player(prop) {
         'Los Angeles battles huge wildfires.',
     ]); // 列表数据
 
-    const [musicSrc] = useState('./起风了.mp3'); // 播放音乐url
-
     // 查看列表
     function showList() {
         setListShow(!listShow);
@@ -27,12 +24,8 @@ export function Player(prop) {
 
     // 开始播放或者暂停
     function play() {
-        setPlayState(!playState);
-    }
-
-    useEffect(() => {
         const { current: audioDom } = audioRef;
-        if (playState) {
+        if (!playState) {
             audioDom.play();
             timer = setInterval(() => {
                 const { currentTime, duration } = audioDom;
@@ -42,7 +35,14 @@ export function Player(prop) {
             audioDom.pause();
             clearInterval(timer);
         }
-    }, [playState]);
+        setPlayState((oldVal) => {
+            return !oldVal;
+        });
+    }
+
+    useEffect(() => {
+        console.log(prop.info)
+    }, [prop.info])
 
     // 播放按钮
     const PlayButton = useCallback(() => {
@@ -60,6 +60,13 @@ export function Player(prop) {
             </div>
         )
     }
+
+    const Audio = useCallback(() => {
+        return prop.info.musicSrc ?
+            <audio style={{ display: "none" }} autoPlay ref={audioRef}>
+                <source src={prop.info?.musicSrc} />
+            </audio> : <></>
+    }, [prop.info])
     // 显隐watch
     useEffect(() => {
         if (prop.show) {
@@ -67,7 +74,7 @@ export function Player(prop) {
         } else {
             setPlayerClassName('Player PlayerHide')
         }
-    }, [prop.show])
+    }, [prop.show]);
 
     return (
         <div className={playerClassName}>
@@ -76,12 +83,12 @@ export function Player(prop) {
                 <Col span={8} className="info">
                     <Row>
                         <Col span={4}>
-                            <Image height={50} width={50} src='https://bkimg.cdn.bcebos.com/pic/810a19d8bc3eb13533fac918ec57bfd3fd1f4134ee75?x-bce-process=image/watermark,image_d2F0ZXIvYmFpa2UxNTA=,g_7,xp_5,yp_5' fallback={fallback} />
+                            <Image height={50} width={50} src={prop.info.picUrl} fallback={fallback} />
                         </Col>
                         <Col span={20}>
                             <div className='muiscName'>
-                                <span className='description ellipsis'>起风了</span>
-                                <span className='owner'>买辣椒也用券</span>
+                                <span className='description ellipsis'>{prop.info.name}</span>
+                                <span className='owner'>-{prop.info.owner}</span>
                             </div>
                             <div className='downloadIcon'>
                                 <CloudDownloadOutlined />
@@ -114,10 +121,7 @@ export function Player(prop) {
                 dataSource={listData}
                 renderItem={(item) => <List.Item>{item}</List.Item>}
             />
-            <audio style={{ display: "none" }} ref={audioRef}>
-                <source src={musicSrc} />
-            </audio>
-
+            <Audio />
         </div>
     )
 }

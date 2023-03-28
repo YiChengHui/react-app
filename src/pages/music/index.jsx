@@ -1,14 +1,12 @@
 import { Card, Row, Col, PageHeader, Image } from 'antd';
 import { useEffect, useState } from "react";
 import { transformDate, fallback } from "@/components/tools";
-import { Player } from './player';
 import axios from "axios";
 
 const { Meta } = Card;
 
 export function Music(prop) {
     const [listArr, setList] = useState([]);
-    const [showPlayer] = useState(true);
 
     async function getList() {
         const { data: { list } } = await axios.get(`/api/music/toplist`);
@@ -56,9 +54,8 @@ export function Music(prop) {
     }
     return (
         <div className="MusicIndex">
-            {/* <PageHeader title="音乐榜单" />
-            <TopList /> */}
-            <Player show={showPlayer} />
+            <PageHeader title="音乐榜单" />
+            <TopList />
         </div>
     )
 }

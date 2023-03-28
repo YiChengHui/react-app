@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { HashRouter, useHistory } from "react-router-dom";
 import { Routes, RouteList } from "@/route/route";
+
+import { bus } from "@/components/tools"
 
 import { Layout, Menu } from "antd";
 import { MenuFoldOutlined, MenuUnfoldOutlined, GithubFilled } from "@ant-design/icons";
 
+
+import { Player } from '@/pages/music/player';
 
 const { Header, Sider, Content, } = Layout;
 const isMobile = /Android|webOS|iPhone|iPad|Windows Phone|iPod|BlackBerry|SymbianOS|Nokia|Mobile|MicroMessenger/i.test(navigator.userAgent);
@@ -18,6 +22,8 @@ const navList = Routes.filter(({ navName }) => navName).map(({ path, navName, ic
 
 export const PageLayout = props => {
     const [collapsed, setCollapsed] = useState(false);
+    const [showPlayer, setPlayShow] = useState(false);
+    const [playInfo, setPlayInfo] = useState({});
 
     const Menus = props => {
         const { mode, theme } = props;
@@ -69,6 +75,14 @@ export const PageLayout = props => {
         </Header>;
     };
 
+    useEffect(() => {
+        bus.$on('playMusic', info => {
+            setPlayShow(true);
+            setPlayInfo(info);
+        });
+        return () => bus.$off('playMusic');
+    }, []);
+
     return (
         <HashRouter>
             <Layout className="site-layout">
@@ -77,6 +91,7 @@ export const PageLayout = props => {
                     <NavHeader />
                     <Content className="site-layout-content">
                         <RouteList />
+                        <Player show={showPlayer} info={playInfo} />
                     </Content>
                 </Layout>
             </Layout>

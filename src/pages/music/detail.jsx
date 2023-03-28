@@ -1,11 +1,27 @@
 import { useState, useEffect } from "react";
 import { PageHeader, Image, Row, Avatar, Skeleton, List } from "antd";
 import { PlayCircleOutlined } from "@ant-design/icons";
-import { fallback } from "@/components/tools";
+import { fallback, bus } from "@/components/tools";
 
 import axios from "axios";
 
 export function MusicDetail(prop) {
+    // 开始播放
+    async function startPlay(musicInfo) {
+        const { data: { data: [{ url }] } } = await axios.get(`/api/music/song/url/v1`, {
+            params: {
+                id: musicInfo.id,
+                level: 'standard'
+            }
+        });
+        bus.$emit("playMusic", {
+            ...musicInfo,
+            musicSrc: url,
+            picUrl: musicInfo.al?.picUrl.replace(`http`, `https`),
+            owner: musicInfo.ar[0]?.name,
+        });
+    }
+
     const [detail, setDetail] = useState({
         playlist: {
             name: "",
@@ -27,7 +43,7 @@ export function MusicDetail(prop) {
                             title={item?.name}
                             description={item.ar[0]?.name}
                         />
-                        <PlayCircleOutlined style={{ fontSize: "20px" }} />
+                        <PlayCircleOutlined style={{ fontSize: "20px" }} onClick={startPlay.bind(null, item)} />
                     </Skeleton>
                     <hr />
                 </List.Item>
