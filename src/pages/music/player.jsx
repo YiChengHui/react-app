@@ -40,13 +40,10 @@ export function Player(prop) {
         });
     }
 
-    useEffect(() => {
-        console.log(prop.info)
-    }, [prop.info])
-
     // 播放按钮
     const PlayButton = useCallback(() => {
         return playState ? <PauseCircleOutlined onClick={play} /> : <PlayCircleOutlined onClick={play} />
+        // eslint-disable-next-line
     }, [playState]);
 
     // 进度条

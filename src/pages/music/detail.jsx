@@ -52,14 +52,14 @@ export function MusicDetail(prop) {
     };
 
     useEffect(() => {
-        const { match: { params: { id } } } = prop;
+        const id = prop.match.params.id;
         const getDetail = async id => {
             const { data } = await axios.get(`/api/music/playlist/detail?id=${id}`);
             setDetail(data);
             setLoading(false);
         };
         getDetail(id);
-    }, []);
+    }, [prop.match.params.id]);
 
 
     return <div className="MusicDetail">
