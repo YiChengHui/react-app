@@ -16,7 +16,7 @@ export function MusicDetail(prop) {
         });
         bus.$emit("playMusic", {
             ...musicInfo,
-            musicSrc: url,
+            musicSrc: url.replace(`http`, `https`),
             picUrl: musicInfo.al?.picUrl.replace(`http`, `https`),
             owner: musicInfo.ar[0]?.name,
         });
